@@ -14,8 +14,19 @@ for u, v in G.edges():
     sumV = sum((1 / ((w * G[v][y]['weight']) ** 0.5)) for y in G.successors(v) if y != u)
     G[u][v]['forman_ricci'] = (w * (1 / w - sumU)) + (w * (1 / w - sumV))
 
-layout = nx.spring_layout(G, seed=12) 
-nx.draw_networkx(G, layout, with_labels=True)
+layout = {
+    "S3A": (0, 3), "S2C": (1, 3), "S1E": (2, 3),
+    "S3B": (0, 2), "S2D": (1, 2),
+    "S3G": (0, 1), "S2I": (1, 0), "S1L": (2, 0),
+    "S3H": (0, 0),
+    
+    "TC": (3, 1.5),
+    
+    "R1K": (4, 3), "R2N": (5, 3), "R3R": (6, 3), "R3S": (6, 2),
+    "R1M": (4, 0), "R2O": (5, 0), "R3T": (6, 0)
+}
+
+nx.draw_networkx(G, layout, with_labels=True, node_size=2000)
 edgeLabels = nx.get_edge_attributes(G, 'weight')
 nx.draw_networkx_edge_labels(G, layout, edge_labels=edgeLabels)
 
